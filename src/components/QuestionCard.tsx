@@ -41,13 +41,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, wholeNu
   };
 
   return (
-    <div className="bg-card rounded-2xl p-5 border-2 border-border shadow-sm transition-all duration-200">
-      <p className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+    <div className="bg-card rounded-2xl p-4 md:p-5 border-2 border-border shadow-sm transition-all duration-200">
+      <p className="text-xs md:text-sm font-semibold text-muted-foreground mb-2 md:mb-3 uppercase tracking-wide">
         Question {question.id}
       </p>
       
-      <div className="flex items-center gap-3">
-        <span className="text-4xl font-bold text-foreground">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+        <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground whitespace-nowrap">
           {formatNumber(question.num1, wholeNumbersOnly)} {getOperationSymbol(question.operation)} {formatNumber(question.num2, wholeNumbersOnly)} =
         </span>
         
@@ -62,7 +62,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, wholeNu
             disabled={question.isAnswered}
             placeholder="?"
             className={`
-              w-20 h-14 text-center text-2xl font-bold rounded-xl border-2
+              w-16 h-12 sm:w-20 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border-2
               ${getInputBorderColor()}
               bg-muted/50 text-foreground placeholder-muted-foreground
               focus:outline-none focus:ring-2 focus:ring-ring
@@ -74,9 +74,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, wholeNu
           {question.isAnswered && (
             <div className="animate-pop-in">
               {question.isCorrect ? (
-                <Check className="w-8 h-8 text-success" strokeWidth={3} />
+                <Check className="w-6 h-6 sm:w-8 sm:h-8 text-success" strokeWidth={3} />
               ) : (
-                <X className="w-8 h-8 text-destructive" strokeWidth={3} />
+                <X className="w-6 h-6 sm:w-8 sm:h-8 text-destructive" strokeWidth={3} />
               )}
             </div>
           )}
