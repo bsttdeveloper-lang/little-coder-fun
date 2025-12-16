@@ -7,6 +7,7 @@ interface PracticeScreenProps {
   operation: Operation;
   questions: Question[];
   wholeNumbersOnly: boolean;
+  cumulativeScore: { correct: number; incorrect: number };
   onBack: () => void;
   onReset: () => void;
   onAnswer: (questionId: number, answer: string) => void;
@@ -23,6 +24,7 @@ const PracticeScreen = ({
   operation,
   questions,
   wholeNumbersOnly,
+  cumulativeScore,
   onBack,
   onReset,
   onAnswer,
@@ -31,8 +33,9 @@ const PracticeScreen = ({
   const questionsPerPage = 5;
   const totalPages = Math.ceil(questions.length / questionsPerPage);
 
-  const correctCount = questions.filter((q) => q.isCorrect === true).length;
-  const incorrectCount = questions.filter((q) => q.isCorrect === false).length;
+  // Use cumulative score instead of calculating from current questions
+  const correctCount = cumulativeScore.correct;
+  const incorrectCount = cumulativeScore.incorrect;
   const totalAnswered = correctCount + incorrectCount;
 
   const currentQuestions = questions.slice(

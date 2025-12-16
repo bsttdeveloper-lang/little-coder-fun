@@ -15,6 +15,7 @@ const Index = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(null);
   const [decimalsEnabled, setDecimalsEnabled] = useState(false);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [cumulativeScore, setCumulativeScore] = useState({ correct: 0, incorrect: 0 });
 
   const handleOperationSelect = (operation: Operation) => {
     setSelectedOperation(operation);
@@ -34,6 +35,7 @@ const Index = () => {
 
   const handleBack = () => {
     setSelectedDifficulty(null);
+    // Generate new questions but keep the score
     setQuestions([]);
   };
 
@@ -41,6 +43,8 @@ const Index = () => {
     if (selectedOperation && selectedDifficulty) {
       const newQuestions = generateQuestions(selectedOperation, 10, !decimalsEnabled, selectedDifficulty);
       setQuestions(newQuestions);
+      // Only reset score when reset button is pressed
+      setCumulativeScore({ correct: 0, incorrect: 0 });
     }
   };
 
@@ -50,6 +54,11 @@ const Index = () => {
         if (q.id === questionId && !q.isAnswered) {
           const userNum = parseFloat(answer);
           const isCorrect = !isNaN(userNum) && Math.abs(userNum - q.correctAnswer) < 0.01;
+          // Update cumulative score
+          setCumulativeScore(score => ({
+            correct: score.correct + (isCorrect ? 1 : 0),
+            incorrect: score.incorrect + (isCorrect ? 0 : 1),
+          }));
           return {
             ...q,
             userAnswer: answer,
@@ -69,6 +78,7 @@ const Index = () => {
         operation={selectedOperation}
         questions={questions}
         wholeNumbersOnly={!decimalsEnabled}
+        cumulativeScore={cumulativeScore}
         onBack={handleBack}
         onReset={handleReset}
         onAnswer={handleAnswer}
