@@ -48,7 +48,8 @@ export const formatNumber = (num: number, wholeNumbersOnly: boolean): string => 
 export const generateQuestions = (
   operation: Operation,
   count: number,
-  wholeNumbersOnly: boolean
+  wholeNumbersOnly: boolean,
+  maxNumber: number = 12
 ): Question[] => {
   const questions: Question[] = [];
 
@@ -57,33 +58,35 @@ export const generateQuestions = (
     let num2: number;
 
     if (wholeNumbersOnly) {
-      // Whole numbers mode
+      // Whole numbers mode - use maxNumber for range
       if (operation === "division") {
-        num2 = Math.floor(Math.random() * 9) + 1;
-        num1 = num2 * (Math.floor(Math.random() * 10) + 1);
+        num2 = Math.floor(Math.random() * Math.min(maxNumber, 10)) + 1;
+        const maxMultiplier = Math.floor(maxNumber / num2);
+        num1 = num2 * (Math.floor(Math.random() * maxMultiplier) + 1);
       } else if (operation === "subtraction") {
-        num1 = Math.floor(Math.random() * 20) + 1;
+        num1 = Math.floor(Math.random() * maxNumber) + 1;
         num2 = Math.floor(Math.random() * num1) + 1;
       } else {
-        num1 = Math.floor(Math.random() * 12) + 1;
-        num2 = Math.floor(Math.random() * 12) + 1;
+        num1 = Math.floor(Math.random() * maxNumber) + 1;
+        num2 = Math.floor(Math.random() * maxNumber) + 1;
       }
     } else {
-      // Decimal mode - generate numbers with 1 decimal place like 8.9, 10.1, etc.
+      // Decimal mode - generate numbers with 1 decimal place
+      const decimalMax = maxNumber - 0.1;
       if (operation === "addition") {
-        num1 = Math.round((Math.random() * 19 + 0.1) * 10) / 10;
-        num2 = Math.round((Math.random() * 19 + 0.1) * 10) / 10;
+        num1 = Math.round((Math.random() * decimalMax + 0.1) * 10) / 10;
+        num2 = Math.round((Math.random() * decimalMax + 0.1) * 10) / 10;
       } else if (operation === "subtraction") {
-        num1 = Math.round((Math.random() * 19 + 5) * 10) / 10;
+        num1 = Math.round((Math.random() * decimalMax + 1) * 10) / 10;
         num2 = Math.round((Math.random() * (num1 - 0.1) + 0.1) * 10) / 10;
       } else if (operation === "multiplication") {
-        // Generate decimals like 0.5 × 0.4, 1.6 × 3.8, etc.
-        num1 = Math.round((Math.random() * 3.9 + 0.1) * 10) / 10;
-        num2 = Math.round((Math.random() * 3.9 + 0.1) * 10) / 10;
+        const multMax = Math.min(maxNumber, 10) - 0.1;
+        num1 = Math.round((Math.random() * multMax + 0.1) * 10) / 10;
+        num2 = Math.round((Math.random() * multMax + 0.1) * 10) / 10;
       } else {
-        // Division with decimals - ensure reasonable results
-        num2 = Math.round((Math.random() * 3.9 + 0.1) * 10) / 10;
-        const result = Math.round((Math.random() * 3.9 + 0.1) * 10) / 10;
+        const divMax = Math.min(maxNumber, 10) - 0.1;
+        num2 = Math.round((Math.random() * divMax + 0.1) * 10) / 10;
+        const result = Math.round((Math.random() * divMax + 0.1) * 10) / 10;
         num1 = Math.round((num2 * result) * 10) / 10;
       }
     }

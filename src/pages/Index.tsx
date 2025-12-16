@@ -3,6 +3,7 @@ import { Switch } from "@/components/ui/switch";
 import { Users, Trophy, Sparkles, Shield, Zap } from "lucide-react";
 import OperationCard from "@/components/OperationCard";
 import PracticeScreen from "@/components/PracticeScreen";
+import DifficultySelect from "@/components/DifficultySelect";
 import StoreButtons from "@/components/StoreButtons";
 import StarRating from "@/components/StarRating";
 import FeedbackForm from "@/components/FeedbackForm";
@@ -11,23 +12,34 @@ import { Operation, generateQuestions, Question } from "@/lib/mathUtils";
 
 const Index = () => {
   const [selectedOperation, setSelectedOperation] = useState<Operation | null>(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(null);
   const [decimalsEnabled, setDecimalsEnabled] = useState(false);
   const [questions, setQuestions] = useState<Question[]>([]);
 
   const handleOperationSelect = (operation: Operation) => {
-    const newQuestions = generateQuestions(operation, 10, !decimalsEnabled);
-    setQuestions(newQuestions);
     setSelectedOperation(operation);
   };
 
-  const handleBack = () => {
+  const handleDifficultySelect = (maxNumber: number) => {
+    if (selectedOperation) {
+      const newQuestions = generateQuestions(selectedOperation, 10, !decimalsEnabled, maxNumber);
+      setQuestions(newQuestions);
+      setSelectedDifficulty(maxNumber);
+    }
+  };
+
+  const handleBackFromDifficulty = () => {
     setSelectedOperation(null);
+  };
+
+  const handleBack = () => {
+    setSelectedDifficulty(null);
     setQuestions([]);
   };
 
   const handleReset = () => {
-    if (selectedOperation) {
-      const newQuestions = generateQuestions(selectedOperation, 10, !decimalsEnabled);
+    if (selectedOperation && selectedDifficulty) {
+      const newQuestions = generateQuestions(selectedOperation, 10, !decimalsEnabled, selectedDifficulty);
       setQuestions(newQuestions);
     }
   };
@@ -50,7 +62,8 @@ const Index = () => {
     );
   };
 
-  if (selectedOperation) {
+  // Show practice screen if both operation and difficulty are selected
+  if (selectedOperation && selectedDifficulty) {
     return (
       <PracticeScreen
         operation={selectedOperation}
@@ -59,6 +72,17 @@ const Index = () => {
         onBack={handleBack}
         onReset={handleReset}
         onAnswer={handleAnswer}
+      />
+    );
+  }
+
+  // Show difficulty selection if operation is selected
+  if (selectedOperation) {
+    return (
+      <DifficultySelect
+        operation={selectedOperation}
+        onSelect={handleDifficultySelect}
+        onBack={handleBackFromDifficulty}
       />
     );
   }
