@@ -4,9 +4,6 @@ import path from "path";
 
 export default defineConfig(({ mode }) => ({
   base: mode === "production" ? "./" : "/",
-  server: {
-    port: 8080,
-  },
   plugins: [react()],
   resolve: {
     alias: {
