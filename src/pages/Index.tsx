@@ -100,22 +100,22 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="px-4 pt-8 pb-6">
-        <div className="container max-w-md mx-auto text-center">
+      <div className="px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-6">
+        <div className="container max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-addition/10 text-addition px-4 py-2 rounded-full mb-4">
             <Sparkles className="w-4 h-4" />
             <span className="text-sm font-bold">#1 Math App for Kids</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-extrabold text-primary font-nunito mb-3">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary font-nunito mb-3">
             Math Learning App
           </h1>
-          <p className="text-lg text-muted-foreground font-nunito mb-6">
+          <p className="text-lg md:text-xl text-muted-foreground font-nunito mb-6 max-w-2xl mx-auto">
             Choose an operation to practice
           </p>
 
           {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-6">
             <StarRating />
             <div className="flex items-center gap-1.5 bg-card px-3 py-1.5 rounded-full shadow-sm">
               <Users className="w-4 h-4 text-multiplication" />
@@ -130,21 +130,23 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="px-4 pb-8">
-        <div className="container max-w-md mx-auto">
+      <div className="px-4 sm:px-6 lg:px-8 pb-8 md:pb-12">
+        <div className="container max-w-6xl mx-auto">
           {/* Decimals Toggle */}
-          <div className="bg-secondary/80 rounded-2xl px-5 py-4 mb-6 flex items-center justify-between">
-            <span className="text-lg font-semibold text-foreground">
-              {decimalsEnabled ? "Decimals enabled (0.1)" : "Decimals enable (0.1)"}
-            </span>
-            <Switch
-              checked={decimalsEnabled}
-              onCheckedChange={setDecimalsEnabled}
-            />
+          <div className="max-w-md mx-auto lg:max-w-lg mb-6 md:mb-8">
+            <div className="bg-secondary/80 rounded-2xl px-5 py-4 flex items-center justify-between">
+              <span className="text-lg font-semibold text-foreground">
+                {decimalsEnabled ? "Decimals enabled (0.1)" : "Decimals enable (0.1)"}
+              </span>
+              <Switch
+                checked={decimalsEnabled}
+                onCheckedChange={setDecimalsEnabled}
+              />
+            </div>
           </div>
 
-          {/* Operation Cards */}
-          <div className="space-y-4 mb-8">
+          {/* Operation Cards - Grid on larger screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
             <OperationCard operation="addition" onClick={() => handleOperationSelect("addition")} />
             <OperationCard operation="subtraction" onClick={() => handleOperationSelect("subtraction")} />
             <OperationCard operation="multiplication" onClick={() => handleOperationSelect("multiplication")} />
@@ -152,38 +154,38 @@ const Index = () => {
           </div>
 
           {/* Features Section */}
-          <div className="bg-card rounded-3xl p-6 shadow-lg mb-6">
-            <h2 className="text-xl font-bold text-foreground mb-4 text-center">Why Kids Love Us</h2>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-card rounded-3xl p-6 md:p-8 shadow-lg mb-6 md:mb-8 max-w-4xl mx-auto">
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4 md:mb-6 text-center">Why Kids Love Us</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               <div className="flex flex-col items-center text-center p-3">
-                <div className="w-12 h-12 bg-addition/10 rounded-full flex items-center justify-center mb-2">
-                  <Zap className="w-6 h-6 text-addition" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-addition/10 rounded-full flex items-center justify-center mb-2">
+                  <Zap className="w-6 h-6 md:w-8 md:h-8 text-addition" />
                 </div>
-                <span className="text-sm font-semibold text-foreground">Instant Feedback</span>
+                <span className="text-sm md:text-base font-semibold text-foreground">Instant Feedback</span>
               </div>
               <div className="flex flex-col items-center text-center p-3">
-                <div className="w-12 h-12 bg-subtraction/10 rounded-full flex items-center justify-center mb-2">
-                  <Trophy className="w-6 h-6 text-subtraction" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-subtraction/10 rounded-full flex items-center justify-center mb-2">
+                  <Trophy className="w-6 h-6 md:w-8 md:h-8 text-subtraction" />
                 </div>
-                <span className="text-sm font-semibold text-foreground">Track Progress</span>
+                <span className="text-sm md:text-base font-semibold text-foreground">Track Progress</span>
               </div>
               <div className="flex flex-col items-center text-center p-3">
-                <div className="w-12 h-12 bg-multiplication/10 rounded-full flex items-center justify-center mb-2">
-                  <Shield className="w-6 h-6 text-multiplication" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-multiplication/10 rounded-full flex items-center justify-center mb-2">
+                  <Shield className="w-6 h-6 md:w-8 md:h-8 text-multiplication" />
                 </div>
-                <span className="text-sm font-semibold text-foreground">Safe for Kids</span>
+                <span className="text-sm md:text-base font-semibold text-foreground">Safe for Kids</span>
               </div>
               <div className="flex flex-col items-center text-center p-3">
-                <div className="w-12 h-12 bg-division/10 rounded-full flex items-center justify-center mb-2">
-                  <Sparkles className="w-6 h-6 text-division" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-division/10 rounded-full flex items-center justify-center mb-2">
+                  <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-division" />
                 </div>
-                <span className="text-sm font-semibold text-foreground">Fun to Learn</span>
+                <span className="text-sm md:text-base font-semibold text-foreground">Fun to Learn</span>
               </div>
             </div>
           </div>
 
           {/* Feedback Section */}
-          <div className="mb-6">
+          <div className="mb-6 md:mb-8 max-w-2xl mx-auto">
             <div className="flex justify-center mb-4">
               <FeedbackForm />
             </div>
@@ -191,7 +193,7 @@ const Index = () => {
           </div>
 
           {/* Store Buttons */}
-          <div className="pt-4 border-t border-border">
+          <div className="pt-4 border-t border-border max-w-md mx-auto">
             <p className="text-center text-muted-foreground mb-4 font-nunito font-semibold">
               Download the full app
             </p>
