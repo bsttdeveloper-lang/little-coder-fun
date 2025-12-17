@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 import { Users, Trophy, Sparkles, Shield, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import OperationCard from "@/components/OperationCard";
 import PracticeScreen from "@/components/PracticeScreen";
 import DifficultySelect from "@/components/DifficultySelect";
@@ -11,6 +13,7 @@ import FeedbackList from "@/components/FeedbackList";
 import { Operation, generateQuestions, Question } from "@/lib/mathUtils";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [selectedOperation, setSelectedOperation] = useState<Operation | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(null);
   const [decimalsEnabled, setDecimalsEnabled] = useState(false);
@@ -198,6 +201,17 @@ const Index = () => {
               Download the full app
             </p>
             <StoreButtons />
+          </div>
+
+          {/* Privacy Policy Button */}
+          <div className="mt-6 text-center">
+            <Button
+              variant="ghost"
+              onClick={() => navigate("/privacy-policy")}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Privacy Policy
+            </Button>
           </div>
         </div>
       </div>
