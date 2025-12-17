@@ -46,7 +46,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, wholeNu
         Question {question.id}
       </p>
       
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+      <div className="flex flex-row flex-wrap items-center gap-2 sm:gap-3">
         <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground whitespace-nowrap">
           {formatNumber(question.num1, wholeNumbersOnly)} {getOperationSymbol(question.operation)} {formatNumber(question.num2, wholeNumbersOnly)} =
         </span>
